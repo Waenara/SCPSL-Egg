@@ -21,9 +21,11 @@ A Pterodactyl egg that simplifies the deployment and management of [SCP: Secret 
 > If you change values after the server is installed, you will need to reinstall the server for the changes to take effect. This won't delete any data on the server, except the `.bin` folder.
 
 - `Exiled Installation Variant` - Defines the installation option for the Exiled framework. Available options: 
- _ `0: Do not install Exiled`
- _ `1: Install the stable release version of Exiled`
- _ `2: Install the pre-release version of Exiled`.
+```
+0: Do not install Exiled.
+1: Install the stable release version of Exiled.
+2: Install the pre-release version of Exiled.
+```
 - `Use SCPDiscord?` - Defines whether to install and use SCPDiscord plugin.
 - `Beta name` - Specifies the SteamCMD beta branch name for the server installation. Enter the name of the desired beta branch to use. Use `public` to select the public branch.
 - `Beta password` - Specifies the SteamCMD beta password for the server installation. Enter the password required to access the selected beta branch. Use "none" if no password is required.
