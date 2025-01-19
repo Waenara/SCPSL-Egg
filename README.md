@@ -1,6 +1,8 @@
 # SCPSL-Egg  
 A Pterodactyl egg that simplifies the deployment and management of [SCP: Secret Laboratory (SCP:SL)](https://store.steampowered.com/app/700330/SCP_Secret_Laboratory/) game servers using the [Pterodactyl panel](https://pterodactyl.io/).
 
+![Build Status](https://github.com/Waenara/SCPSL-Egg/actions/workflows/docker-image.yml/badge.svg)
+
 ## Features
 - Simple, lightweight, and easy to use.
 - Clean and organized file structure.
@@ -11,7 +13,7 @@ A Pterodactyl egg that simplifies the deployment and management of [SCP: Secret 
 
 ## Installation
 1. Download `SCPSL-Egg.json` file from this repository.
-2. Go to your Pterodactyl panel and navigate to `Admin Panel` -> `Nests` -> `Create New` and fill the necessary fields.
+2. Go to your [Pterodactyl panel](https://pterodactyl.io/) and navigate to `Admin Panel` -> `Nests` -> `Create New` and fill the necessary fields.
 3. Click on the `Import Egg` button (On the main `Nests` page), select the `SCPSL-Egg.json` file you downloaded and choose the `SCP: Secret Laboratory` nest you created.
 4. Сreate a new server, select the `SCP: Secret Laboratory` egg, and configure the necessary variables.
 5. Wait for the server to install and enjoy!
