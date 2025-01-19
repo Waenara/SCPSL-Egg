@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/700330/header.jpg?t=1737064460" alt="SCP: Secret Laboratory" style="border-radius: 15px; max-width: 100%; height: auto;">
+    <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/700330/header.jpg?t=1737064460" alt="SCP: Secret Laboratory">
 </p>
 
 <h1 align="center">SCPSL-Egg</h1>
