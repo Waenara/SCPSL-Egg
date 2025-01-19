@@ -1,7 +1,16 @@
-# SCPSL-Egg  
-A Pterodactyl egg that simplifies the deployment and management of [SCP: Secret Laboratory (SCP:SL)](https://store.steampowered.com/app/700330/SCP_Secret_Laboratory/) game servers using the [Pterodactyl panel](https://pterodactyl.io/).
+<p align="center">
+  <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/700330/header.jpg?t=1737064460" alt="SCP: Secret Laboratory" style="border-radius: 15px; max-width: 100%; height: auto;">
+</p>
 
-![Build Status](https://github.com/Waenara/SCPSL-Egg/actions/workflows/docker-image.yml/badge.svg)
+<h1 align="center">SCPSL-Egg</h1>
+
+<p align="center">
+  A Pterodactyl egg that simplifies the deployment and management of <a href="https://store.steampowered.com/app/700330/SCP_Secret_Laboratory/">SCP: Secret Laboratory (SCP:SL)</a> game servers using the <a href="https://pterodactyl.io/">Pterodactyl panel</a>.
+</p>
+
+<p align="center">
+  <img src="https://github.com/Waenara/SCPSL-Egg/actions/workflows/docker-image.yml/badge.svg" alt="Build Status">
+</p>
 
 ## Features
 - Simple, lightweight, and easy to use.
