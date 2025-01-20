@@ -10,6 +10,7 @@
 
 <p align="center">
   <img src="https://github.com/Waenara/SCPSL-Egg/actions/workflows/docker-image.yml/badge.svg" alt="Build Status">
+  <img src="https://img.shields.io/github/downloads/Waenara/SCPSL-Egg/total" alt="Downloads">
 </p>
 
 ## Features
