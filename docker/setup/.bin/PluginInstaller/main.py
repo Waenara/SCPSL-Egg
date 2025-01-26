@@ -98,7 +98,7 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
                             extract_zip(zip_response.content, path)
                         else:
                             logger.error(f"[❌] Failed to download {zip_name}. HTTP status code: {zip_response.status_code}")
-                    logger.success(f"[✅] Installed {expected_dll_filename} {"with dependencies" if zip_asset else ""} to {path}")
+                    logger.success(f"[✅] Installed {expected_dll_filename} {"with dependencies" if zip_asset else ""}to {path}")
         else:
             logger.error(f"[❌] No assets found in the latest release of {repo_name}")
     else:
