@@ -10,3 +10,4 @@ python main.py
 
 # Finishing
 deactivate
+rm -rf /home/container/.cache

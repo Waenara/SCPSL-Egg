@@ -7,7 +7,7 @@ import io
 from loguru import logger
 
 SCPSL_EGG_REPO = "https://github.com/Waenara/SCPSL-Egg"
-CONFIG_PATH = os.path.join("home", "container", ".config", "PluginInstaller", "config.yaml")
+CONFIG_PATH = os.path.join("/", "home", "container", ".config", "PluginInstaller", "config.yaml")
 
 def load_config() -> dict:
     if not os.path.exists(CONFIG_PATH):
@@ -51,8 +51,7 @@ def github_request(url: str, token: str = None) -> requests.Response:
 
 def extract_zip(zip_content: bytes, dest_path: str) -> None:
     with zipfile.ZipFile(io.BytesIO(zip_content)) as zip_file:
-        zip_file.extractall(dest_path)
-    logger.success(f"Extracted dependencies to {dest_path}")
+        zip_file.extractall(os.path.join(dest_path, "dependencies"))
 
 def install_plugin(url: str, path: str, token: str = None) -> None:
     username, repo_name, release_tag = extract_github_info(url)
@@ -75,7 +74,6 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
         if "assets" in release_data and release_data["assets"]:
             dll_asset = next((asset for asset in release_data["assets"] if asset["name"].endswith(".dll")), None)
             if dll_asset:
-                dll_name = dll_asset["name"]
                 dll_download_url = dll_asset["browser_download_url"]
 
                 expected_dll_filename = f"{repo_name}-{latest_version}.dll"
@@ -99,7 +97,7 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
                 zip_response = github_request(zip_download_url, token)
                 if zip_response.status_code == 200:
                     extract_zip(zip_response.content, path)
-                    logger.info(f"Downloaded and extracted {zip_name} to {path}")
+                    logger.success(f"Downloaded and extracted dependencies to {path}")
                 else:
                     logger.error(f"Failed to download {zip_name}. HTTP status code: {zip_response.status_code}")
         else:
@@ -114,7 +112,7 @@ if __name__ == "__main__":
     github_token = config.get("github_token")
 
     for exiled_plugin in config["plugins"]["exiled"]:
-        install_plugin(exiled_plugin, os.path.join("home", "container", ".config", "EXILED", "Plugins"), github_token)
+        install_plugin(exiled_plugin, os.path.join("/", "home", "container", ".config", "EXILED", "Plugins"), github_token)
 
     for nwapi_plugin in config["plugins"]["nwapi"]:
-        install_plugin(nwapi_plugin, os.path.join("home", "container", ".config", "SCP Secret Laboratory", "PluginAPI", "plugins", "global"), github_token)
+        install_plugin(nwapi_plugin, os.path.join("/", "home", "container", ".config", "SCP Secret Laboratory", "PluginAPI", "plugins", "global"), github_token)
