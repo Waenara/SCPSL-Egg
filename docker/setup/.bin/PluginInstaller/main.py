@@ -22,15 +22,16 @@ def load_config() -> dict:
         return yaml.safe_load(f)
 
 def extract_github_info(url: str) -> tuple:
-    pattern = r'https://github\.com/([^/]+)/([^/]+)'
+    pattern = r'https://github\.com/([^/]+)/([^/]+)(?:/releases/tag/([^/]+))?'
     match = re.match(pattern, url)
 
     if match:
         username = match.group(1)
         repo_name = match.group(2)
-        return username, repo_name
+        release_tag = match.group(3)
+        return username, repo_name, release_tag
     else:
-        return None, None
+        return None, None, None
 
 def remove_old_plugin(plugin_name: str, plugin_dir: str) -> None:
     for filename in os.listdir(plugin_dir):
@@ -54,7 +55,7 @@ def extract_zip(zip_content: bytes, dest_path: str) -> None:
     logger.success(f"Extracted dependencies to {dest_path}")
 
 def install_plugin(url: str, path: str, token: str = None) -> None:
-    username, repo_name = extract_github_info(url)
+    username, repo_name, release_tag = extract_github_info(url)
 
     if not username or not repo_name:
         logger.error(f"Invalid GitHub URL: {url}")
@@ -62,7 +63,12 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
 
     logger.info(f"########## Installing {repo_name} by {username} ##########")
 
-    response = github_request(f"https://api.github.com/repos/{username}/{repo_name}/releases/latest", token)
+    if release_tag:
+        release_url = f"https://api.github.com/repos/{username}/{repo_name}/releases/tags/{release_tag}"
+    else:
+        release_url = f"https://api.github.com/repos/{username}/{repo_name}/releases/latest"
+
+    response = github_request(release_url, token)
     if response.status_code == 200:
         release_data = response.json()
         latest_version = release_data["tag_name"]

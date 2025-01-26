@@ -20,6 +20,8 @@
 - Automatically installs [SCP: Secret Laboratory Dedicated Server](https://steamdb.info/app/996560/info/) and it's dependencies. You can configure branch and branch password in server variables
 - Automatically installs [EXILED](https://github.com/ExMod-Team/EXILED) using official [EXILED Installer](https://github.com/ExMod-Team/EXILED/tree/master/EXILED/Exiled.Installer) if configured in server variables.
 - Automatically installs [SCPDiscord](https://github.com/KarlOfDuty/SCPDiscord) and it's dependencies if configured in server variables.
+- Automatically updates [SCP: Secret Laboratory Dedicated Server](https://steamdb.info/app/996560/info/) on server start.
+- Automatically installs and updates [EXILED](https://github.com/ExMod-Team/EXILED) using PluginInstaller.
 
 ## Installation
 1. Download `SCPSL-Egg.json` file from this repository.
@@ -41,3 +43,27 @@
 - `Use SCPDiscord?` - Defines whether to install and use SCPDiscord plugin.
 - `Beta name` - Specifies the SteamCMD beta branch name for the server installation. Enter the name of the desired beta branch to use. Use `public` to select the public branch.
 - `Beta password` - Specifies the SteamCMD beta password for the server installation. Enter the password required to access the selected beta branch. Use "none" if no password is required.
+
+## PluginInstaller
+The egg features a simple plugin installer that allows you to install and update EXILED plugins with a single click. To use it, follow these steps:
+1. After the server is installed, navigate to the `File Manager` tab.
+2. Open configuration file `config.yaml` in the `.config/PluginInstaller` folder.
+3. Add the plugin repository URL to either the `exiled` or `nwapi` section.
+4. Save the file and restart the server.
+
+Example of the `config.yaml` file:
+```yaml
+# This is configuration file for plugin installer.
+# Here you can specify plugins that should be installed or updated on server start.
+# Please refer to https://github.com/Waenara/SCPSL-Egg/ for more information.
+
+github_token: null
+
+plugins:
+  exiled: 
+    - https://github.com/Michal78900/MapEditorReborn # Example of EXILED plugin repository URL
+    - https://github.com/CedModV2/CedMod/releases/tag/3.4.19-638682349334074216 # Example of EXILED plugin release URL
+  nwapi: 
+    - https://github.com/Axwabo/slocLoader # Example of NWAPI plugin repository URL
+    - https://github.com/MrAfitol/SCP-1162/releases/tag/1.2.2 # Example of NWAPI plugin release URL
+```
