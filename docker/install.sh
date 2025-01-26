@@ -20,7 +20,7 @@ rm -rf /mnt/server/.bin
 cd /mnt/server
 curl -L https://github.com/Waenara/SCPSL-Egg/archive/refs/heads/main.zip -o repo.zip
 unzip repo.zip "SCPSL-Egg-main/docker/setup/*" -d .
-mv SCPSL-Egg-main/docker/setup/* .
+mv -v SCPSL-Egg-main/docker/setup/.[!.]* .
 rm -rf repo.zip SCPSL-Egg-main
 
 # Download SteamCMD
