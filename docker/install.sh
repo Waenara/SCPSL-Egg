@@ -9,7 +9,7 @@ echo "###############################################################"
 
 # Install dependencies
 apt-get update
-apt-get install -y curl wget unzip libicu-dev lib32gcc-s1
+apt-get install -y curl wget unzip libicu-dev lib32gcc-s1 rsync
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 
@@ -20,8 +20,9 @@ rm -rf /mnt/server/.bin
 cd /mnt/server
 curl -L https://github.com/Waenara/SCPSL-Egg/archive/refs/heads/main.zip -o repo.zip
 unzip repo.zip "SCPSL-Egg-main/docker/setup/*" -d .
-mv -v SCPSL-Egg-main/docker/setup/.[!.]* .
+rsync -av --ignore-existing SCPSL-Egg-main/docker/setup/ ./
 rm -rf repo.zip SCPSL-Egg-main
+chmod +x .bin/PluginInstaller/start.sh .bin/start.sh
 
 # Download SteamCMD
 mkdir -p /mnt/server/.bin/SteamCMD
