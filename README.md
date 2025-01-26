@@ -21,7 +21,7 @@
 - Automatically installs [EXILED](https://github.com/ExMod-Team/EXILED) using official [EXILED Installer](https://github.com/ExMod-Team/EXILED/tree/master/EXILED/Exiled.Installer) if configured in server variables.
 - Automatically installs [SCPDiscord](https://github.com/KarlOfDuty/SCPDiscord) and it's dependencies if configured in server variables.
 - Automatically updates [SCP: Secret Laboratory Dedicated Server](https://steamdb.info/app/996560/info/) on server start.
-- Automatically installs and updates [EXILED](https://github.com/ExMod-Team/EXILED) using PluginInstaller.
+- Automatically installs and updates [EXILED](https://github.com/ExMod-Team/EXILED) using [plugin installer](https://github.com/Waenara/SCPSL-Egg?tab=readme-ov-file#plugin-installer).
 
 ## Installation
 1. Download `SCPSL-Egg.json` file from this repository.
@@ -44,7 +44,7 @@
 - `Beta name` - Specifies the SteamCMD beta branch name for the server installation. Enter the name of the desired beta branch to use. Use `public` to select the public branch.
 - `Beta password` - Specifies the SteamCMD beta password for the server installation. Enter the password required to access the selected beta branch. Use "none" if no password is required.
 
-## PluginInstaller
+## Plugin installer
 The egg features a simple plugin installer that allows you to install and update EXILED plugins with a single click. To use it, follow these steps:
 1. After the server is installed, navigate to the `File Manager` tab.
 2. Open configuration file `config.yaml` in the `.config/PluginInstaller` folder.
