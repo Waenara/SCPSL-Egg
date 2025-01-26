@@ -9,6 +9,9 @@ from loguru import logger
 SCPSL_EGG_REPO = "https://github.com/Waenara/SCPSL-Egg"
 CONFIG_PATH = os.path.join("/", "home", "container", ".config", "PluginInstaller", "config.yaml")
 
+LOG_FILE_PATH = os.path.join("/", "home", "container", ".config", "PluginInstaller", "plugin_installer.log")
+logger.add(LOG_FILE_PATH, level="INFO")
+
 def load_config() -> dict:
     if not os.path.exists(CONFIG_PATH):
         logger.warning("Config file not found. Downloading default config file...")
