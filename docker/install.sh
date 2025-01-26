@@ -1,10 +1,11 @@
 #!/bin/bash
 
-###############################################################
-#                     Waenara / SCPSL-Egg                     #
-#   Pterodactyl egg for simplified SCP:SL server management   #
-#         Created by Waenara -- waenara.dev@gmail.com         #
-###############################################################
+# Begin of installation
+echo "###############################################################"
+echo "#                     Waenara / SCPSL-Egg                     #"
+echo "#   Pterodactyl egg for simplified SCP:SL server management   #"
+echo "#         Created by Waenara -- waenara.dev@gmail.com         #"
+echo "###############################################################"
 
 # Install dependencies
 apt-get update
@@ -12,19 +13,15 @@ apt-get install -y curl wget unzip libicu-dev lib32gcc-s1
 apt-get clean
 rm -rf /var/lib/apt/lists/*
 
-# Remove old app directory and create a new one
+# Remove old binaries
 rm -rf /mnt/server/.bin
-mkdir -p /mnt/server/.bin
 
-# Create startup script
-cat << 'EOF' > /mnt/server/.bin/start.sh
-if [ "$SCPDISCORD_INSTALLATION" -eq 1 ]; then
-  /home/container/.bin/SCPDiscord/SCPDiscordBot_Linux --config /home/container/.config/SCPDiscord/config.yml &
-fi
-
-cd /home/container/.bin/SCPSLDS && /home/container/.bin/SCPSLDS/LocalAdmin "$SERVER_PORT"
-EOF
-chmod +x /mnt/server/.bin/start.sh
+# Download setup files
+cd /mnt/server
+curl -L https://github.com/Waenara/SCPSL-Egg/archive/refs/heads/main.zip -o repo.zip
+unzip repo.zip "SCPSL-Egg-main/docker/setup/*" -d .
+mv SCPSL-Egg-main/docker/setup/* .
+rm -rf repo.zip SCPSL-Egg-main
 
 # Download SteamCMD
 mkdir -p /mnt/server/.bin/SteamCMD
@@ -61,3 +58,8 @@ if [ "$SCPDISCORD_INSTALLATION" -eq 1 ]; then
 else
     rm /mnt/server/.config/'SCP Secret Laboratory'/PluginAPI/plugins/global/SCPDiscord.dll
 fi
+
+# End of installation
+echo "###############################################################"
+echo "#                   Installation completed!                   #"
+echo "###############################################################"
