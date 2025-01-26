@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # Install dependencies
-pip3 install -r requirements.txt
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
 # Run the installer
-python3 main.py
+python main.py
+
+# Finishing
+deactivate
