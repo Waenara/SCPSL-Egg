@@ -8,18 +8,17 @@ from loguru import logger
 
 SCPSL_EGG_REPO = "https://github.com/Waenara/SCPSL-Egg"
 CONFIG_PATH = os.path.join("/", "home", "container", ".config", "PluginInstaller", "config.yaml")
-
 LOG_FILE_PATH = os.path.join("/", "home", "container", ".config", "PluginInstaller", "plugin_installer.log")
 logger.add(LOG_FILE_PATH, level="INFO")
 
 def load_config() -> dict:
     if not os.path.exists(CONFIG_PATH):
-        logger.warning("Config file not found. Downloading default config file...")
+        logger.warning("[⚠️] Config file not found. Downloading default config file...")
         os.makedirs(os.path.dirname(CONFIG_PATH), exist_ok=True)
         response = requests.get(f"{SCPSL_EGG_REPO}/raw/main/docker/setup/.config/PluginInstaller/config.yaml")
         with open(CONFIG_PATH, "w") as f:
             f.write(response.content.decode())
-        logger.success("Config file downloaded successfully!")
+        logger.success("[✅] Config file downloaded successfully!")
 
     with open(CONFIG_PATH, "r") as f:
         return yaml.safe_load(f)
@@ -41,7 +40,7 @@ def remove_old_plugin(plugin_name: str, plugin_dir: str) -> None:
         if filename.startswith(plugin_name):
             file_path = os.path.join(plugin_dir, filename)
             os.remove(file_path)
-            logger.info(f"Removed old plugin file: {file_path}")
+            logger.info(f"[🗑️] Removed old plugin file: {file_path}")
 
 def github_request(url: str, token: str = None) -> requests.Response:
     headers = {}
@@ -49,7 +48,7 @@ def github_request(url: str, token: str = None) -> requests.Response:
         headers["Authorization"] = f"token {token}"
     response = requests.get(url, headers=headers)
     if response.status_code == 401:
-        logger.error("Invalid GitHub token or token lacks permissions.")
+        logger.error("[❌] Invalid GitHub token or token lacks permissions.")
     return response
 
 def extract_zip(zip_content: bytes, dest_path: str) -> None:
@@ -60,10 +59,8 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
     username, repo_name, release_tag = extract_github_info(url)
 
     if not username or not repo_name:
-        logger.error(f"Invalid GitHub URL: {url}")
+        logger.error(f"[❌] Invalid GitHub URL: {url}")
         return
-
-    logger.info(f"########## Installing {repo_name} by {username} ##########")
 
     if release_tag:
         release_url = f"https://api.github.com/repos/{username}/{repo_name}/releases/tags/{release_tag}"
@@ -76,6 +73,8 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
         latest_version = release_data["tag_name"]
         if "assets" in release_data and release_data["assets"]:
             dll_asset = next((asset for asset in release_data["assets"] if asset["name"].endswith(".dll")), None)
+            zip_asset = next((asset for asset in release_data["assets"] if asset["name"] == "dependencies.zip"), None)
+
             if dll_asset:
                 dll_download_url = dll_asset["browser_download_url"]
 
@@ -83,36 +82,29 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
                 full_dll_path = os.path.join(path, expected_dll_filename)
 
                 if os.path.exists(full_dll_path):
-                    logger.info(f"{expected_dll_filename} is up-to-date. Skipping download.")
+                    logger.info(f"[⚡] {expected_dll_filename} is up-to-date. Skipping installation.")
                 else:
                     remove_old_plugin(repo_name, path)
                     os.makedirs(path, exist_ok=True)
                     dll_response = github_request(dll_download_url, token)
                     with open(full_dll_path, "wb") as f:
                         f.write(dll_response.content)
-                    logger.success(f"Downloaded {expected_dll_filename} to {full_dll_path}")
-            
-            zip_asset = next((asset for asset in release_data["assets"] if asset["name"] == "dependencies.zip"), None)
-            if zip_asset:
-                zip_name = zip_asset["name"]
-                zip_download_url = zip_asset["browser_download_url"]
+                    if zip_asset:
+                        zip_name = zip_asset["name"]
+                        zip_download_url = zip_asset["browser_download_url"]
 
-                zip_response = github_request(zip_download_url, token)
-                if zip_response.status_code == 200:
-                    extract_zip(zip_response.content, path)
-                    logger.success(f"Downloaded and extracted dependencies to {path}")
-                else:
-                    logger.error(f"Failed to download {zip_name}. HTTP status code: {zip_response.status_code}")
+                        zip_response = github_request(zip_download_url, token)
+                        if zip_response.status_code == 200:
+                            extract_zip(zip_response.content, path)
+                        else:
+                            logger.error(f"[❌] Failed to download {zip_name}. HTTP status code: {zip_response.status_code}")
+                    logger.success(f"[✅] Installed {expected_dll_filename} {"with dependencies" if zip_asset else ""} to {path}")
         else:
-            logger.error(f"No assets found in the latest release of {repo_name}")
+            logger.error(f"[❌] No assets found in the latest release of {repo_name}")
     else:
-        logger.error(f"Failed to fetch release information for {repo_name}. HTTP status code: {response.status_code}")
-
-    logger.info(f"##########################################################")
+        logger.error(f"[❌] Failed to fetch release information for {repo_name}. HTTP status code: {response.status_code}")
 
 if __name__ == "__main__":
-    logger.info("Starting plugin installation...")
-
     config = load_config()
     github_token = config.get("github_token")
 
