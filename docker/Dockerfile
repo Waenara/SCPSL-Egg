@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     unzip \
     adduser \
+    python3 \
+    python3-pip \
     libicu-dev \
     lib32gcc-s1 \
     dotnet-sdk-8.0 \

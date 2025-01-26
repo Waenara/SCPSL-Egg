@@ -2,6 +2,7 @@
 
 # Update SCP: Secret Laboratory Dedicated Server
 cd /home/container/.bin/SteamCMD && ./steamcmd.sh +force_install_dir /home/container/.bin/SCPSLDS +login anonymous +app_update 996560 -beta "$BETA_NAME" $( [ "$BETA_PASSWORD" != "none" ] && echo "-betapassword $BETA_PASSWORD" ) validate +quit
+rm -rf /home/container/Steam
 
 # Run plugin installer
 cd /home/container/.bin/PluginInstaller && bash start.sh
