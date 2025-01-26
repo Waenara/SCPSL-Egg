@@ -105,6 +105,8 @@ def install_plugin(url: str, path: str, token: str = None) -> None:
     else:
         logger.error(f"Failed to fetch release information for {repo_name}. HTTP status code: {response.status_code}")
 
+    logger.info(f"##########################################################")
+
 if __name__ == "__main__":
     logger.info("Starting plugin installation...")
 
