@@ -4,7 +4,7 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2025-05-17T21:03:41+03:00",
+    "exported_at": "2025-05-17T21:09:26+03:00",
     "name": "SCP:Secret Laboratory",
     "author": "waenara.dev@gmail.com",
     "description": "A Pterodactyl egg that simplifies the deployment and management of SCP: Secret Laboratory (SCP:SL) game servers using the Pterodactyl panel.",
@@ -22,7 +22,7 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/bash\r\n\r\napt-get update\r\napt-get install -y curl\r\nbash <(curl -s https:\/\/github.com\/Waenara\/SCPSL-Egg\/raw\/refs\/heads\/main\/docker\/install.sh)",
+            "script": "#!\/bin\/bash\r\n\r\napt-get update\r\napt-get install -y curl\r\nbash <(curl -s https:\/\/raw.githubusercontent.com\/Waenara\/SCPSL-Egg\/refs\/heads\/main\/docker\/install.sh)",
             "container": "debian:stable-slim",
             "entrypoint": "bash"
         }

@@ -53,7 +53,7 @@ else
 fi
 
 # Download startup file
-curl -L "https://github.com/Waenara/SCPSL-Egg/raw/refs/heads/main/docker/start.sh" -o /mnt/server/start.sh
+curl -L "https://raw.githubusercontent.com/Waenara/SCPSL-Egg/refs/heads/main/docker/start.sh" -o /mnt/server/start.sh
 chmod +x /mnt/server/start.sh
 
 # End of installation
