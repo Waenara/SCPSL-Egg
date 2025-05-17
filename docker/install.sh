@@ -56,6 +56,10 @@ fi
 curl -L "https://raw.githubusercontent.com/Waenara/SCPSL-Egg/refs/heads/main/docker/start.sh" -o /mnt/server/start.sh
 chmod +x /mnt/server/start.sh
 
+# Remove installation files
+rm -rf /mnt/server/.bin/SteamCMD
+rm -rf /mnt/server/.bin/ExiledInstaller
+
 # End of installation
 echo "###############################################################"
 echo "#                   Installation completed!                   #"
