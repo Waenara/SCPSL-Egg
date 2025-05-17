@@ -4,7 +4,7 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2025-01-26T18:14:28+02:00",
+    "exported_at": "2025-05-17T21:03:41+03:00",
     "name": "SCP:Secret Laboratory",
     "author": "waenara.dev@gmail.com",
     "description": "A Pterodactyl egg that simplifies the deployment and management of SCP: Secret Laboratory (SCP:SL) game servers using the Pterodactyl panel.",
@@ -13,7 +13,7 @@
         "waenaradev\/scpsl-egg": "waenaradev\/scpsl-egg"
     },
     "file_denylist": [],
-    "startup": ".\/.bin\/start.sh",
+    "startup": ".\/start.sh",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"Waiting for players..\"\r\n}",
@@ -22,8 +22,8 @@
     },
     "scripts": {
         "installation": {
-            "script": "#!\/bin\/bash\r\n\r\n# Begin of installation\r\necho \"###############################################################\"\r\necho \"#                     Waenara \/ SCPSL-Egg                     #\"\r\necho \"#   Pterodactyl egg for simplified SCP:SL server management   #\"\r\necho \"#         Created by Waenara -- waenara.dev@gmail.com         #\"\r\necho \"###############################################################\"\r\n\r\n# Install dependencies\r\napt-get update\r\napt-get install -y curl wget unzip libicu-dev lib32gcc-s1 rsync\r\napt-get clean\r\nrm -rf \/var\/lib\/apt\/lists\/*\r\n\r\n# Remove old binaries\r\nrm -rf \/mnt\/server\/.bin\r\n\r\n# Download setup files\r\ncd \/mnt\/server\r\ncurl -L https:\/\/github.com\/Waenara\/SCPSL-Egg\/archive\/refs\/heads\/main.zip -o repo.zip\r\nunzip repo.zip \"SCPSL-Egg-main\/docker\/setup\/*\" -d .\r\nrsync -av --ignore-existing SCPSL-Egg-main\/docker\/setup\/ .\/\r\nrm -rf repo.zip SCPSL-Egg-main\r\nchmod +x .bin\/PluginInstaller\/start.sh .bin\/start.sh\r\n\r\n# Download SteamCMD\r\nmkdir -p \/mnt\/server\/.bin\/SteamCMD\r\ncd \/mnt\/server\/.bin\/SteamCMD\r\ncurl -sqL \"https:\/\/steamcdn-a.akamaihd.net\/client\/installer\/steamcmd_linux.tar.gz\" | tar zxvf -\r\n\r\n# Download SCP:Secret Laboratory Dedicated Server\r\n.\/steamcmd.sh +force_install_dir \/mnt\/server\/.bin\/SCPSLDS +login anonymous +app_update 996560 -beta \"$BETA_NAME\" $( [ \"$BETA_PASSWORD\" != \"none\" ] && echo \"-betapassword $BETA_PASSWORD\" ) validate +quit\r\n\r\n# Download Exiled\r\nif [ \"$EXILED_INSTALLATION\" -ne 0 ]; then\r\n    mkdir -p \/mnt\/server\/.bin\/ExiledInstaller\r\n    cd \/mnt\/server\/.bin\/ExiledInstaller\r\n    wget https:\/\/github.com\/ExMod-Team\/EXILED\/releases\/latest\/download\/Exiled.Installer-Linux\r\n    chmod +x Exiled.Installer-Linux\r\n    .\/Exiled.Installer-Linux --path \/mnt\/server\/.bin\/SCPSLDS --appdata \/mnt\/server\/.config\/ --exiled \/mnt\/server\/.config\/ $([ \"$EXILED_INSTALLATION\" -eq 2 ] && echo --pre-releases)\r\nfi\r\n\r\n# Install Discord bot\r\nif [ \"$SCPDISCORD_INSTALLATION\" -eq 1 ]; then\r\n    mkdir -p \/mnt\/server\/.bin\/SCPDiscord\r\n    cd \/mnt\/server\/.bin\/SCPDiscord\r\n    wget https:\/\/github.com\/KarlOfDuty\/SCPDiscord\/releases\/latest\/download\/SCPDiscordBot_Linux\r\n    chmod +x SCPDiscordBot_Linux\r\n    mkdir -p \/mnt\/server\/.config\/SCPDiscord\r\n\r\n    mkdir -p \/mnt\/server\/.config\/'SCP Secret Laboratory'\/PluginAPI\/plugins\/global\/\r\n    cd \/mnt\/server\/.config\/'SCP Secret Laboratory'\/PluginAPI\/plugins\/global\/\r\n    wget https:\/\/github.com\/KarlOfDuty\/SCPDiscord\/releases\/latest\/download\/dependencies.zip\r\n    unzip -o dependencies.zip -d \/mnt\/server\/.config\/'SCP Secret Laboratory'\/PluginAPI\/plugins\/global\/\r\n    rm -f dependencies.zip\r\n    rm -f \/mnt\/server\/.config\/'SCP Secret Laboratory'\/PluginAPI\/plugins\/global\/SCPDiscord.dll\r\n    wget https:\/\/github.com\/KarlOfDuty\/SCPDiscord\/releases\/latest\/download\/SCPDiscord.dll\r\nelse\r\n    rm \/mnt\/server\/.config\/'SCP Secret Laboratory'\/PluginAPI\/plugins\/global\/SCPDiscord.dll\r\nfi\r\n\r\n# End of installation\r\necho \"###############################################################\"\r\necho \"#                   Installation completed!                   #\"\r\necho \"###############################################################\"",
-            "container": "ubuntu",
+            "script": "#!\/bin\/bash\r\n\r\napt-get update\r\napt-get install -y curl\r\nbash <(curl -s https:\/\/github.com\/Waenara\/SCPSL-Egg\/raw\/refs\/heads\/main\/docker\/install.sh)",
+            "container": "debian:stable-slim",
             "entrypoint": "bash"
         }
     },

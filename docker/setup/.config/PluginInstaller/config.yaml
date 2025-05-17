@@ -1,9 +1,0 @@
-# This is configuration file for plugin installer.
-# Here you can specify plugins that should be installed or updated on server start.
-# Please refer to https://github.com/Waenara/SCPSL-Egg/ for more information.
-
-github_token: null
-
-plugins:
-  exiled: []
-  nwapi: []

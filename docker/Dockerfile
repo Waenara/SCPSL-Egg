@@ -5,23 +5,13 @@
 ###############################################################
 
 # Use the latest Ubuntu image as base
-FROM ubuntu:latest
+FROM debian:stable-slim
 
 # Update the package list and install dependencies
-RUN apt-get update && apt-get install -y \
-    sudo \
-    curl \
-    wget \
-    unzip \
-    adduser \
-    python3 \
-    python3-pip \
-    python3-venv \
-    libicu-dev \
-    lib32gcc-s1 \
-    dotnet-sdk-8.0 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y adduser libicu-dev lib32gcc-s1
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/*
 
 # Creating a container user
 RUN adduser --disabled-password --home /home/container container
