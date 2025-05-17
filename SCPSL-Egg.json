@@ -4,13 +4,13 @@
         "version": "PTDL_v2",
         "update_url": null
     },
-    "exported_at": "2025-05-17T21:09:26+03:00",
+    "exported_at": "2025-05-17T22:22:39+03:00",
     "name": "SCP:Secret Laboratory",
     "author": "waenara.dev@gmail.com",
     "description": "A Pterodactyl egg that simplifies the deployment and management of SCP: Secret Laboratory (SCP:SL) game servers using the Pterodactyl panel.",
     "features": null,
     "docker_images": {
-        "waenaradev\/scpsl-egg": "waenaradev\/scpsl-egg"
+        "ghcr.io\/ptero-eggs\/yolks:mono_latest": "ghcr.io\/ptero-eggs\/yolks:mono_latest"
     },
     "file_denylist": [],
     "startup": ".\/start.sh",
