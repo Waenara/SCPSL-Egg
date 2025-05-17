@@ -9,7 +9,7 @@ FROM debian:stable-slim
 
 # Update the package list and install dependencies
 RUN apt-get update
-RUN apt-get install -y adduser libicu-dev lib32gcc-s1 sudo
+RUN apt-get install -y adduser libicu-dev lib32gcc-s1
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
