@@ -9,7 +9,7 @@ FROM debian:stable-slim
 
 # Update the package list and install dependencies
 RUN apt-get update
-RUN apt-get install -y adduser
+RUN apt-get install -y adduser libicu-dev
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
