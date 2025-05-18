@@ -28,7 +28,7 @@ curl -sqL "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.g
 if [ "$EXILED_INSTALLATION" -ne 0 ]; then
     mkdir -p /mnt/server/.bin/ExiledInstaller
     cd /mnt/server/.bin/ExiledInstaller
-    curl -L "https://github.com/ExMod-Team/EXILED/releases/latest/download/Exiled.Installer-Linux" -o Exiled.Installer-Linux
+    curl -L "https://github.com/ExSLMod-Team/EXILED/releases/latest/download/Exiled.Installer-Linux" -o Exiled.Installer-Linux
     chmod +x Exiled.Installer-Linux
     ./Exiled.Installer-Linux --path /mnt/server/.bin/SCPSLDS --appdata /mnt/server/.config/ --exiled /mnt/server/.config/ $([ "$EXILED_INSTALLATION" -eq 2 ] && echo --pre-releases)
 fi
