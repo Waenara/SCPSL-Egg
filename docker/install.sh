@@ -48,6 +48,7 @@ if [ "$SCPDISCORD_INSTALLATION" -eq 1 ]; then
     rm -rf dependencies.zip temp_extracted
     
     rm -f /mnt/server/.config/'SCP Secret Laboratory'/LabAPI/plugins/global/SCPDiscord.dll
+    cd "/mnt/server/.config/SCP Secret Laboratory/LabAPI/plugins/global/"
     curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/download/3.3.0-RC5/SCPDiscord.dll" -o SCPDiscord.dll
 else
     rm /mnt/server/.config/'SCP Secret Laboratory'/LabAPI/plugins/global/SCPDiscord.dll
