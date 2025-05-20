@@ -13,9 +13,6 @@
   <img src="https://img.shields.io/github/downloads/Waenara/SCPSL-Egg/total" alt="Downloads">
 </p>
 
-# This egg is currently unmaintained.
-It is broken at the moment, and there won't be a fix for it right now. However, a complete rework is planned in the near future when I have time to work on it.
-
 ## Features
 - Simple, lightweight, and easy to use.
 - Clean and organized file structure.

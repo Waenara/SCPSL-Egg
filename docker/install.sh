@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Begin of installation
 echo "###############################################################"
 echo "#                     Waenara / SCPSL-Egg                     #"
 echo "#   Pterodactyl egg for simplified SCP:SL server management   #"
@@ -33,34 +32,31 @@ if [ "$EXILED_INSTALLATION" -ne 0 ]; then
     ./Exiled.Installer-Linux --path /mnt/server/.bin/SCPSLDS --appdata /mnt/server/.config/ --exiled /mnt/server/.config/ $([ "$EXILED_INSTALLATION" -eq 2 ] && echo --pre-releases)
 fi
 
-# Install Discord bot
+# Install Discord bot - USING TAG 3.3.0-RC5 FOR NOW AS THERES NO STABLE RELEASE FOR LABAPI YET
 if [ "$SCPDISCORD_INSTALLATION" -eq 1 ]; then
     mkdir -p /mnt/server/.bin/SCPDiscord
     cd /mnt/server/.bin/SCPDiscord
-    curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/latest/download/SCPDiscordBot_Linux_SC" -o SCPDiscordBot_Linux_SC
+    curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/download/3.3.0-RC5/SCPDiscordBot_Linux_SC" -o SCPDiscordBot_Linux_SC
     chmod +x SCPDiscordBot_Linux_SC
     mkdir -p /mnt/server/.config/SCPDiscord
 
-    mkdir -p /mnt/server/.config/'SCP Secret Laboratory'/PluginAPI/plugins/global/
-    cd /mnt/server/.config/'SCP Secret Laboratory'/PluginAPI/plugins/global/
-    curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/latest/download/dependencies.zip" -o dependencies.zip
-    unzip -o dependencies.zip -d /mnt/server/.config/'SCP Secret Laboratory'/PluginAPI/plugins/global/
-    rm -f dependencies.zip
-    rm -f /mnt/server/.config/'SCP Secret Laboratory'/PluginAPI/plugins/global/SCPDiscord.dll
-    curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/latest/download/SCPDiscord.dll" -o SCPDiscord.dll
+    mkdir -p "/mnt/server/.config/SCP Secret Laboratory/LabAPI/dependencies/global/"
+    cd "/mnt/server/.config/SCP Secret Laboratory/LabAPI/"
+    curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/download/3.3.0-RC5/dependencies.zip" -o dependencies.zip
+    unzip -o dependencies.zip "dependencies/*" -d temp_extracted
+    mv -f temp_extracted/dependencies/* "dependencies/global/"
+    rm -rf dependencies.zip temp_extracted
+    
+    rm -f /mnt/server/.config/'SCP Secret Laboratory'/LabAPI/plugins/global/SCPDiscord.dll
+    curl -L "https://github.com/KarlOfDuty/SCPDiscord/releases/download/3.3.0-RC5/SCPDiscord.dll" -o SCPDiscord.dll
 else
-    rm /mnt/server/.config/'SCP Secret Laboratory'/PluginAPI/plugins/global/SCPDiscord.dll
+    rm /mnt/server/.config/'SCP Secret Laboratory'/LabAPI/plugins/global/SCPDiscord.dll
 fi
-
-# Download startup file
-curl -L "https://raw.githubusercontent.com/Waenara/SCPSL-Egg/refs/heads/main/docker/start.sh" -o /mnt/server/start.sh
-chmod +x /mnt/server/start.sh
 
 # Remove installation files
 rm -rf /mnt/server/.bin/SteamCMD
 rm -rf /mnt/server/.bin/ExiledInstaller
 
-# End of installation
 echo "###############################################################"
 echo "#                   Installation completed!                   #"
 echo "###############################################################"
